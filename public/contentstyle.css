@@ -1,0 +1,1430 @@
+/* @tailwind base;
+@tailwind components; */
+@tailwind utilities;
+
+/* Container for button */
+.button-container {
+  display: inline-block; /* Allows margin and padding */
+}
+
+/* Style for the transparent button */
+.transparent-custom-button {
+  @apply inline-flex   
+         items-center   
+         justify-center   
+         px-6   
+         py-3   
+         m-4   
+         text-base   
+         font-medium   
+         text-blue-600   
+         border   
+         border-blue-600   
+         rounded-md   
+         transition   
+         duration-200   
+         ease-in-out   
+         transform   
+         hover:bg-blue-600   
+         hover:text-white   
+         hover:scale-105   
+         focus:outline-none   
+         focus:ring-2   
+         focus:ring-blue-500   
+         focus:ring-opacity-50;
+  font-size: 12px !important; /* Custom color and size */
+}
+
+.custom-white-button {
+  @apply inline-flex
+         items-center
+         justify-center
+         px-6
+         py-3
+         m-4
+         text-base
+         font-medium
+         text-black
+         border
+         border-white
+         rounded-md
+         transition
+         duration-200
+         ease-in-out
+         transform
+         hover:bg-gray-100
+         hover:text-black
+         hover:scale-105
+         focus:outline-none
+         focus:ring-2
+         focus:ring-white
+         focus:ring-opacity-50;
+  font-size: 12px !important;
+  background-color: white;
+  color: black;
+}
+.custom-word-count {
+  position: absolute;
+  right: 25px;
+  bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-low-emphasis);
+}
+
+.custom-msg-reply-button {
+  height: 20px;
+  margin: 0px;
+  margin-right: 6px;
+  padding-left: 7px;
+  padding-right: 6px;
+}
+
+.transparent-custom-button .transparent-custom-button-icon {
+  padding: 5px !important;
+}
+
+.custom-border {
+  border: 1px solid #fa5320 !important; /* Custom color and size */
+  border-radius: 0.375rem !important; /* Tailwind's rounded-md */
+}
+
+.transparent-custom-button button {
+  margin-top: 10px;
+  padding: 10px 15px;
+  background-color: #fa5320;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.depost-text-color {
+  color: #fa5320;
+}
+
+.transparent-custom-button button:hover {
+  background-color: #d44519;
+}
+.li-pg-container {
+  background-color: white !important;
+  padding: 5px !important;
+
+  z-index: 1;
+  position: relative;
+}
+
+.li-pg-input,
+.li-pg-select {
+  width: 100%;
+  padding: 10px;
+  padding: 8px !important;
+  border: 1px solid #ccc !important;
+  transition: border-color 0.3s !important;
+  height: 40px; /* Adjust height for dropdown */
+}
+
+.li-pg-input .li-pg-textarea {
+  height: 66px !important; /* Adjust height for dropdown */
+}
+
+.multi-select {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.select-text {
+  flex: 1;
+  color: #666;
+}
+
+.options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.options label {
+  display: block;
+  padding: 8px;
+  cursor: pointer;
+  font-size: 10px !important;
+}
+
+.options label:hover {
+  background: #f0f0f0;
+}
+
+.li-pg-input:focus,
+.li-pg-select:focus {
+  outline: none !important;
+  border-color: #fa5320 !important;
+  box-shadow: 0 0 0 2px #d44519 !important;
+}
+
+.li-pg-more-options {
+  cursor: pointer !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: 10px !important;
+}
+
+.li-pg-hidden {
+  display: none !important;
+}
+
+.li-pg-option-group {
+  display: flex !important;
+  flex-direction: column !important;
+  margin-top: 5px !important;
+}
+
+.li-custom-label {
+  display: block;
+  font-size: 10px !important;
+  font-weight: 500 !important; /* font-medium */
+  color: #4b5563 !important; /* text-gray-700 */
+  margin-bottom: 0.25rem !important; /* mb-1 */
+  margin-top: 1px !important; /* mb-1 */
+}
+
+.li-pg-input-group {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 15px !important;
+  width: 100% !important;
+}
+
+.li-pg-second-row {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 15px !important;
+  width: 100% !important;
+}
+
+.li-pg-checkbox {
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 5px !important;
+}
+
+.li-pg-hashtags-container {
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 5px !important;
+}
+
+.li-pg-button-container {
+  display: flex !important;
+  justify-content: space-between !important;
+}
+
+.li-toggle-label {
+  font-size: 10px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+}
+
+.li-toggle-app-icon {
+  position: absolute !important;
+  top: 70px !important;
+  right: 19px !important;
+  z-index: 1000 !important;
+  align-self: end !important;
+  cursor: pointer !important; /* Change cursor to pointer */
+  transition: opacity 0.3s !important; /* Smooth transition for hover effect */
+}
+
+.li-toggle-app-icon:hover {
+  opacity: 0.7 !important; /* Change opacity on hover */
+  transition: opacity 0.3s !important; /* Smooth transition for hover effect */
+  transform: scale(1.1) !important;
+}
+
+.li-button-app-icon {
+  position: relative !important;
+  cursor: pointer !important; /* Change cursor to pointer */
+  transition: opacity 0.3s !important; /* Smooth transition for hover effect */
+}
+
+.li-button-app-icon:hover {
+  opacity: 0.7 !important; /* Change opacity on hover */
+}
+
+.li-toggle-indicator {
+  width: 40px !important; /* Adjusted width */
+  height: 24px !important; /* Adjusted height */
+  background-color: #ccc !important;
+  border-radius: 34px !important;
+  position: relative !important;
+  transition: background-color 0.2s !important;
+  margin-left: 10px !important;
+  margin-right: 5px !important;
+}
+
+.li-toggle-indicator:before {
+  content: '' !important;
+  position: absolute !important;
+  width: 20px !important; /* Adjusted width for the circle */
+  height: 20px !important; /* Adjusted height for the circle */
+  left: 2px !important; /* Centered within the toggle */
+  bottom: 2px !important; /* Centered within the toggle */
+  background-color: white !important;
+  border-radius: 50% !important;
+  transition: transform 0.2s !important;
+}
+
+.li-toggle-switch:checked + .li-toggle-indicator {
+  background-color: #fa5320 !important; /* Active color when toggled on */
+}
+
+.li-toggle-switch:checked + .li-toggle-indicator:before {
+  transform: translateX(16px) !important; /* Move the switch */
+}
+
+.li-pg-button-container {
+  display: flex !important;
+  justify-content: flex-end !important; /* Aligns children to the right */
+  align-items: center !important; /* Center items vertically */
+}
+
+.li-settings-icon {
+  margin-left: 8px !important; /* Adds spacing between the settings icon and the button */
+  font-size: 24px !important; /* Adjust size according to your design */
+  color: #fa5320 !important; /* LinkedIn's blue color or customize as needed */
+  transition: color 0.3s !important; /* Smooth hover effect */
+}
+
+.li-settings-icon:hover {
+  color: #fa5320 !important; /* Darker shade on hover */
+}
+
+.li-rocket-icon {
+  width: 26px !important;
+}
+.li-pg-container {
+  background: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
+}
+
+.li-multi-select-row {
+  display: flex !important;
+  gap: 12px !important;
+  margin-bottom: 12px !important; /* Space below the row */
+}
+
+.li-multi-select {
+  position: relative !important;
+  flex: 1 !important;
+}
+
+.li-select-box {
+  display: flex !important;
+  align-items: center !important;
+  padding: 10px !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  background: transparent !important; /* Light background for better visibility */
+}
+
+.li-select-text {
+  flex: 1 !important;
+  color: #666 !important;
+}
+
+.depost-capture-icon {
+  margin-top: 30px;
+}
+
+.li-options {
+  display: none;
+  position: absolute !important;
+  top: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: #fff !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  z-index: 1000 !important;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+}
+
+.li-options label {
+  font-size: 10px !important;
+  display: block;
+  padding: 8px !important;
+  cursor: pointer !important;
+}
+
+.li-options label:hover {
+  background: #f0f0f0 !important;
+}
+
+.li-pg-input-group {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+}
+
+.li-pg-input-container {
+  flex: 1 !important;
+}
+
+/* .li-pg-select, .li-pg-input {  
+  width: 100% !important;  
+  padding: 8px !important;  
+  border: 1px solid #ccc !important;  
+  border-radius: 4px !important;  
+}   */
+
+.li-toggle-switch {
+  margin-right: 8px !important;
+}
+
+.li-pg-hashtags-container {
+  align-items: center !important;
+  margin-top: 10px !important;
+}
+
+.li-pg-button-container {
+  margin-top: 12px !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+}
+
+.li-settings-icon {
+  cursor: pointer !important;
+}
+
+.li-toggle-label {
+  color: rgba(0, 0, 0, 0.88) !important; /* Darker text color */
+  font-size: 10px !important;
+}
+/* Styles for textarea */
+.li-pg-input {
+  resize: vertical !important; /* Allow vertical resizing */
+}
+
+/* Main container for the dropdown */
+.my-custom-dropdown {
+  display: none; /* Initially hidden */
+  position: absolute;
+  padding: 5px;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 5px 5px -3px,
+    rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
+    rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+ 
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 9000;
+  min-width: 150px; /* Minimum width */
+}
+
+/* Option styles */
+.my-custom-dropdown-option {
+  padding: 8px 10px; /* Padding for options */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.2s; /* Smooth transition */
+  font-size: 12px;
+  color: rgb(1, 1, 1);
+}
+
+/* Option hover effect */
+.my-custom-dropdown-option:hover {
+  background-color:  rgb(221, 217, 217);
+  border-radius: 5px;
+}
+
+.custom-template-modal {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: transparent !important; /* No background effect */
+  z-index: 1000 !important; /* Ensure it's above other elements */
+}
+
+.custom-modal-content {
+  background-color: rgba(0, 0, 0, 0.8) !important; /* Less transparent black background */
+  padding: 20px !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important; /* Optional shadow for depth */
+  display: flex !important;
+  flex-direction: row !important; /* Align items in a row */
+  align-items: center !important; /* Center vertically */
+  border-radius: 8px !important; /* Optional: add rounded corners */
+}
+
+.custom-template-input {
+  padding: 10px !important;
+  border: 1px solid white !important; /* White border */
+  border-radius: 4px !important;
+  margin-right: 10px !important; /* Space between input and icons */
+  background-color: rgba(255, 255, 255, 0.1) !important; /* Slightly transparent background for input */
+  color: white !important; /* White text */
+  transition: border 0.3s ease !important;
+  display: block;
+  margin-bottom: 5px; /* Ensure some space between input and error message */
+}
+
+.custom-template-input::placeholder {
+  color: rgba(255, 255, 255, 0.756) !important; /* White placeholder text */
+}
+
+.custom-template-input:focus {
+  border-color: #fa5320 !important; /* Change border color on focus */
+}
+.custom-modal-footer {
+  display: flex !important;
+  align-items: center !important; /* Center icons */
+}
+
+.custom-confirm-button,
+.custom-cancel-button {
+  cursor: pointer !important;
+  font-size: 1.5em !important; /* Larger font for icons */
+  color: white !important; /* White icons */
+  padding: 3px !important;
+  margin-left: 5px !important; /* Space between icons */
+  transition: color 0.2s ease !important;
+}
+
+.custom-confirm-button:hover,
+.custom-cancel-button:hover {
+  background-color: #0909095d;
+  border-radius: 5px;
+}
+.custom-confirm-button:active,
+.custom-cancel-button:active {
+  transform: scale(0.95) !important; /* Slightly decrease size when clicked */
+  box-shadow: none !important; /* Remove box shadow on click */
+}
+
+.custom-error-message {
+  color: red;
+  margin-top: 5px; /* Add spacing between input and error message */
+  font-size: 12px;
+}
+
+.custom-success-message {
+  position: absolute; /* Position relative to parent */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Adjust position to truly center */
+  background-color: #28a745; /* Green background */
+  color: #fff; /* White text */
+  padding: 10px 15px; /* Padding for the message */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+  font-size: 0.9em; /* Font size */
+  z-index: 1000; /* Ensure it's above other elements */
+  display: none; /* Initially hidden */
+  transition: opacity 0.5s ease; /* Fade effect */
+}
+
+.li-textarea-wrapper {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Vertically center items */
+  position: relative; /* Required for absolute positioning of the icon */
+  margin-bottom: 0px; /* Space below the textarea wrapper */
+  height: 80px; /* Set a fixed height, match this with the textarea height */
+}
+.li-suggestion-icon {
+  position: absolute; /* Position relative to the wrapper */
+  right: 10px; /* Adjust as needed */
+  top: 50%; /* Center it vertically */
+  transform: translateY(-50%); /* Adjust for vertical centering */
+  cursor: pointer; /* Pointer cursor on hover */
+  width: 30px; /* Set width for the icon */
+  height: 30px; /* Set height for the icon */
+  display: flex; /* Flexbox for centering the icon */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  background-color: #f5f5f5; /* Change as needed */
+  border-radius: 50%; /* Round shape */
+  transition: background-color 0.3s; /* Transition for hover effect */
+}
+
+.li-suggestion-icon:hover {
+  background-color: #e0e0e0; /* Change background color on hover */
+}
+.li-suggestion-dropdown {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 40%;
+  max-height: 250px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
+
+.li-suggestion-item {
+  padding: 10px; /* Padding for items */
+  cursor: pointer; /* Pointer on hover */
+  font-size: 10px;
+  transition: background-color 0.3s; /* Transition for background */
+}
+
+.li-suggestion-item:hover {
+  background-color: #f7f7f7; /* Highlight on hover */
+}
+
+.custom-checkbox-container {
+  display: flex !important;
+  align-items: center !important;
+  margin-top: 10px !important;
+}
+
+.custom-checkbox {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 8px !important;
+  border: 2px solid #0073b1 !important;
+  background-color: white !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  position: relative !important;
+  appearance: none !important; /* Hides the default checkbox appearance */
+  -webkit-appearance: none !important; /* For webkit-based browsers */
+}
+
+.custom-checkbox:checked {
+  background-color: #fa5320 !important;
+  border-color: #d44519 !important;
+}
+
+.custom-checkbox:checked::before {
+  content: '\\2713' !important;
+  color: white !important;
+  font-size: 12px !important;
+  position: absolute !important;
+  left: 3px !important;
+  top: -2px !important;
+}
+
+.custom-label {
+  font-size: 12px !important;
+}
+
+.my-extension-toast {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.my-extension-toast.show {
+  display: flex;
+}
+
+#toast-notification-message {
+margin-bottom: 27px;
+margin-top: 21px;
+color: #000;
+}
+
+#toast-login-now {
+  margin-bottom: 10px;
+}
+
+.custom-close-icon {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.custom-close-icon::before {
+  content: '\2715';
+}
+
+/* Add this CSS code to the `contentstyle.css` file */
+
+.custom-modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 5px 5px -3px,
+    rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
+    rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+  width: 460px;
+  max-height: 80vh;
+  overflow-y: scroll;
+  height: fit-content;
+  padding: 0px;
+  z-index: 10000;
+}
+.custom-message-button-container {
+  padding: 6px;
+  margin-bottom: 4px;
+  padding-right: 10px;
+  padding-left: 10px;
+  width: fit-content;
+  margin-top: 10px;
+  border-radius: 8px;
+  background-color: rgb(255, 255, 255);
+  border: groove;
+  color: #fa5320;
+  box-shadow:
+    rgba(0, 0, 0, 0.1) 0px 2px 2px 0px,
+    rgba(0, 0, 0, 0.08) 0px 1px 2px 0px;
+}
+
+.custm-d-snippet {
+  transition: opacity 0.2s ease-in-out;
+}
+.custom-modal-container .modal-content {
+  position: relative;
+}
+
+.custom-modal-container .modal-header {
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
+  background: #fff0ec57;
+  padding: 4px 10px;
+  display: flex;
+  gap: 8px;
+  border: 1px solid rgb(239, 239, 239);
+  color: rgb(248, 248, 248);
+}
+
+.custom-modal-container .modal-header h2 {
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+}
+.close-modal {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
+}
+
+.close-modal:hover {
+  color: rgba(0, 0, 0, 0.88);
+  background-color: #eaeef2;
+  border-radius: 8px;
+}
+
+.custom-modal-container .modal-body {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 16px;
+}
+
+.custom-modal-container .form-group {
+  margin-bottom: 10px;
+}
+
+.custom-modal-container .form-group label {
+  margin: 0px 0px 0.35em;
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(0, 0, 0, 0.88);
+  font-weight: 500;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
+.custom-modal-container .custom-box-options {
+  display: ruby;
+  margin-bottom: 10px;
+}
+
+.custom-modal-container .custom-box-option {
+  margin-right: 5px;
+}
+
+.custom-modal-container .select-box {
+  cursor: pointer;
+  margin-bottom: 8px;
+  border-width: 1px;
+  border-style: solid;
+  border-image: initial;
+  border-color: rgb(240, 240, 240);
+  border-radius: 8px;
+  gap: 2px;
+  padding: 10px;
+  line-height: 0.7;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  background-color: #d5d3d32b;
+}
+
+.custom-modal-container .select-box.selected {
+  background-color: #ff714140;
+}
+
+.custom-modal-container .select-box.selected:hover {
+  background-color: #ff714140;
+}
+
+.custom-modal-container .select-box:hover {
+  background-color: #d5d3d35c;
+}
+.btn-primary {
+  background-color: #fa5320;
+  width: 100%;
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+btn-primary:hover {
+  background-color: #d44519;
+}
+
+
+/* Settings Icon */
+.custom-d-settings-container {
+  position: relative;
+}
+
+#custom-d-settings-icon {
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  padding: 8px;
+  transition: transform 0.2s;
+}
+
+#custom-d-settings-icon:hover {
+  transform: rotate(20deg);
+}
+
+.custom-d-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background-color: rgb(255, 255, 255);
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 5px 5px -3px,
+    rgba(0, 0, 0, 0.14) 0px 8px 10px 1px,
+    rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+  z-index: 10000;
+}
+
+.custom-d-popup .popup-modal-content {
+  position: relative;
+  padding: 1px;
+  width: fit-content;
+}
+
+.custom-d-popup .modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
+  font-weight: 600;
+  padding-top: 2px;
+  padding-left: 5px;
+  width: fit-content;
+  background: #fff0ec57;
+}
+.custom-d-popup .close-modal {
+  font-size: 16px;
+  margin-left: 17px;
+  margin-top: -13px;
+}
+.custom-d-option {
+  margin-bottom: 1px;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+  font-size: 14px;
+  color: #333;
+  width: 200px;
+}
+
+.custom-d-option:hover {
+  background-color: #f7faff;
+  border-color: #d1e3f8;
+}
+
+.custom-d-selected {
+  border-color: #0073b1;
+  background-color: #e6f3ff;
+}
+
+.custom-d-hidden {
+  display: none;
+}
+
+.custom-d-submit-btn {
+  background-color: #fa5320;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  margin-top: 15px;
+}
+
+.custom-d-submit-btn:hover {
+  background-color: #005a8d;
+}
+
+.custom-d-submit-btn:active {
+  background-color: #004f7a;
+}
+
+.custom-d-popup-title {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.custom-d-tooltip {
+  visibility: visible; /* Hidden by default */
+  width: fit-content; /* Set a width */
+  background-color: black; /* Tooltip background color */
+  color: #fff; /* Text color */
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 10px;
+  position: absolute;
+  font-size: 12px;
+  z-index: 1000000; /* Ensure tooltip appears above other elements */
+  opacity: 0; /* Start as invisible */
+  transition: opacity 0.3s; /* Smooth transition */
+}
+
+.custom-toggle-div {
+  position: fixed;
+  top: 155px; /* Position from the top */
+  right: 0px; /* Position from the right */
+  z-index: 1000000;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 7px 15px; /* Padding for spacing */
+  background-color:#fa5320; /* Background color */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-top-left-radius: 25px; /* Rounded left corner */
+  border-bottom-left-radius: 25px; /* Rounded left corner */
+  border-top-right-radius: 0; /* Flat right corner */
+  border-bottom-right-radius: 0; /* Flat right corner */
+  cursor: pointer; /* Cursor style */
+  transition: background-color 0.3s ease; /* Smooth background-color transition */
+}
+
+/* Hover effect */
+.custom-toggle-div:hover {
+  background-color: #f68461; /* Change to a darker shade on hover */
+}
+
+.depost-menu {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  height: fit-content;
+  z-index: 10;
+}
+/* .depost-toggle{
+  background-color:#e9eff1;
+  height: 14px;
+  width: 14px;
+  color:white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 1s;
+  cursor: pointer;
+  padding: 13px;
+} */
+.depost-toggle {
+  height: fit-content;
+  width: fit-content;
+  color: white;
+  background-color: #f7f3f2fc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 1s;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px 8px 8px 8px;
+  border: 1px solid #f8e7e3;
+}
+
+.depost-items {
+  display: flex;
+  background-color:white;
+  flex-direction: row;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: 0.5s;
+  border-radius: 0 20px 20px 0px; /* Added rounded right corners */
+  border: 1px solid #f8e7e3; /* Added border */
+  padding: 2px;
+  background: #f7f3f2fc;
+  z-index: 100000;
+}
+
+.depost-items > span {
+  display: flex;
+  color: #fef0ec;
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.depost-toggle > .material-icons {
+  font-size: 40px;
+}
+
+.depost-items > span > .material-icons {
+  transition: transform 0.2s;
+}
+
+.depost-items > span:hover {
+  border-radius: 20px 20px 20px 20px;
+  background-color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.depost-items > span:hover:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: radial-gradient(circle, #fff 10%, transparent 10%);
+  background-size: 1000px 1000px;
+  background-position: 50% 50%;
+  transform: scale(0);
+  opacity: 0;
+  transition:
+    transform 0.5s,
+    opacity 0.5s;
+  animation: ripple 0.5s;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+.custom-modal-container .form-control-input {
+  width: 95% !important;
+  line-height: 1.5 !important;
+  color: rgba(0, 0, 0, 0.88) !important;
+  font-size: 14px !important;
+  padding: 10px !important;
+  border: 1px solid #f0f0f0 !important;
+  border-radius: 8px !important;
+  display: block !important;
+  background-color: #f9f9f9 !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.custom-modal-container .form-control-input:hover {
+  border-color: #fbcdbe !important;
+  box-shadow: none !important;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.custom-modal-container .options-bar {
+  height: 20px;
+  justify-content: space-between;
+  align-items: center;
+  background: #d5d3d32b;
+  border-radius: 8px;
+  padding: 8px 9px;
+  display: flex;
+  gap: 8px;
+  border: 1px solid rgb(239, 239, 239);
+  color: rgba(0, 0, 0, 0.88);
+  width: -moz-fit-content;
+  width: fit-content;
+  line-height: 0.5;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.gap-2 {
+  gap:8px;
+}
+
+.custom-modal-container .options-bar:hover {
+  background-color: #d5d3d35c;
+}
+
+.custom-modal-container .options-bar .dropin {
+  width: max-content;
+}
+
+.share-box-preview-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-background-canvas);
+  height: 100%;
+  top: 0px;
+}
+.option-bar-collapse {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s;
+}
+
+.inline-flex {
+  display: flex;
+}
+
+.option-bar-expand {
+  max-height: 100vh;
+  transition: max-height 0.3s;
+}
+
+/* suggestion box design css */
+
+/* Depost-specific prefix styles */
+.depost-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 320px;
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  z-index: 10000; /* Ensure it’s above other elements */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: depost-fadeInUp 0.4s ease forwards;
+}
+/* Animated fade-in effect */
+@keyframes depost-fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.depost-box .summary-modal-header {
+  justify-content: space-between;
+  align-items: baseline;
+  display: flex;
+  gap: 8px;
+}
+
+/* Skeleton loader */
+.depost-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+.skeleton {
+  background: #e0e0e0;
+  border-radius: 4px;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-header {
+  height: 20px;
+  width: 60%;
+}
+
+.skeleton-line {
+  height: 15px;
+  width: 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.depost-hidden {
+  display: none;
+}
+
+#depost-content {
+  padding: 6px 16px;
+}
+
+.depost-section {
+  margin-bottom: 15px;
+}
+
+.depost-section h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #444;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+  color: white;
+  width: -webkit-fill-available;
+}
+
+.depost-section .close-modal {
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+}
+
+#depost-postSummary li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #f0efef; /* Softer white for contrast */
+}
+
+#depost-commentSuggestions li {
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #f0efef; /* Softer white for contrast */
+  background-color: #000; /* Default background color */
+  transition: background-color 0.2s ease-in-out; /* Add a smooth transition effect */
+  align-items: center;
+}
+#depost-commentSuggestions li:hover {
+  background-color: #333; /* Hovered background color */
+}
+
+/* #depost-postSummary li:before,
+#depost-commentSuggestions li:before {
+  content: "➜";
+  margin-right: 5px; 
+} */
+
+#depost-postSummary li::marker,
+#depost-commentSuggestions li::marker {
+  color: #ffcc00; /* Add a highlight for list markers */
+}
+
+hr {
+  border: none;
+  height: 1px;
+  border-top: 1px solid #8c8c8c33;
+  margin: 15px 0;
+}
+
+/* Scrollable content (for long text) */
+.depost-box {
+  max-height: fit-content; /* Prevent overflow */
+  overflow-y: auto;
+}
+
+/* Close Button */
+.depost-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.depost-close-btn:hover {
+  color: #ffcc00; /* Highlight on hover */
+}
+
+.insert-comment-btn {
+  width: fit-content;
+  height: fit-content;
+  margin-left: 2px;
+  background-color: #424749;
+  color: #fff;
+  border: none;
+  padding: 4px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.insert-comment-btn:hover {
+  background-color: #7b7e7f;
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 600px) {
+  .depost-box {
+    width: 90%;
+    right: 5%;
+    bottom: 10px;
+  }
+}
+
+/* Utilities */
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+/* New sync manager styles */
+.sync-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--background-primary);
+}
+
+.selection-group {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.checkbox-item, .radio-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.checkbox-item:hover, .radio-item:hover {
+  background: var(--background-hover);
+}
+
+.select-all {
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+
+.scroll-container {
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.radio-item input[type="radio"] {
+  accent-color: var(--primary-color);
+}
+
+.checkbox-item input[type="checkbox"] {
+  accent-color: var(--primary-color);
+}
+
+.sync-action-btn {
+  width: 100%;
+  padding: 12px;
+  justify-content: center;
+}
+
+.date-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+    .sync-manager-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .influencer-list-container {
+      max-height: 240px;
+      overflow-y: auto;
+      margin: 8px 0;
+    }
+    
+    .date-filter-group {
+      margin: 16px 0;
+      padding: 8px 0;
+      border-top: 1px solid var(--border-light);
+      border-bottom: 1px solid var(--border-light);
+    }
+    
+    .sync-actions {
+      margin-top: 16px;
+    }

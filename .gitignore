@@ -1,0 +1,37 @@
+# Node.js dependencies
+node_modules/
+
+# Build output directory (if you use one)
+dist/
+build/
+out/
+
+# Chrome extension temporary files
+.crx/
+*.crx
+
+# npm debug log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local environment files
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE related files
+.idea/
+*.iml
+.vscode/
+
+# Chrome extension unpacked temporary directories
+__MACOSX/
+
+# Any package lock files (optional, see explanation below)
+package-lock.json
+yarn.lock
+bun.lockb
+dist.pem
