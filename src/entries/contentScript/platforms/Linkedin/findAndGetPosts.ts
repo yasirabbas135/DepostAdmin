@@ -1,21 +1,420 @@
 import {
   FEED_UPDATE_V2_SELECTOR,
 } from '~/lib/constants';
-import {  loadStyles, showTooltip } from '~/lib/utils';
+import {  loadStyles, positionDropdown, positionDropdownViewPort, showTooltip } from '~/lib/utils';
 import { getPostDetail } from './linkedinUtils';
+let isProfileSyncDialogVisible = false; // New flag for profile sync dialog
+
+// async function showSyncManagerDialog(button, container, shadowRoot) {
+//   const options: DropdownOptions = {
+//     title: 'Manage Post Sync',
+//     buttons: [],
+//   };
+
+//   const dropdown = createDropdown(shadowRoot, options, button);
+//   dropdown.style.left = '50%';
+//   dropdown.style.top = '20%';
+//   dropdown.style.position = 'fixed';
+//   // positionDropdown(dropdown, button, container,'above');
+//   await loadSyncContent(dropdown, shadowRoot);
+// }
+
+let isDropdownVisible = false;
 
 async function showSyncManagerDialog(button, container, shadowRoot) {
+  const dropdown = shadowRoot.querySelector('#action-dropdown');
+
+  if (isDropdownVisible && dropdown) {
+    // If the dropdown is visible, hide it and update the flag
+    dropdown.style.display = 'none';
+    isDropdownVisible = false;
+    return; // Exit early
+  } else if (dropdown) {
+    // If the dropdown exists but is hidden, show it and update the flag
+    dropdown.style.display = 'block';
+    isDropdownVisible = true;
+    return;
+  }
+
+  // Dropdown not created yet, create it
   const options: DropdownOptions = {
     title: 'Manage Post Sync',
     buttons: [],
   };
 
-  const dropdown = createDropdown(shadowRoot, options, button);
-  dropdown.style.left = '50%';
-  dropdown.style.top = '20%';
-  dropdown.style.position = 'fixed';
+  const newDropdown = createDropdown(shadowRoot, options, button);
+  newDropdown.style.left = '50%';
+  newDropdown.style.top = '20%';
+  newDropdown.style.position = 'fixed';
   // positionDropdown(dropdown, button, container,'above');
-  await loadSyncContent(dropdown, shadowRoot);
+  await loadSyncContent(newDropdown, shadowRoot);
+  isDropdownVisible = true; // Update the flag after creating the dropdown
+}
+
+async function showProfileSyncDialog(button) {
+
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.bottom = '100px';
+  container.style.right = '80px';
+  container.style.zIndex = '1000';
+  const shadowRoot = container.attachShadow({ mode: 'open' });
+
+  // Load existing styles
+  await loadStyles(shadowRoot, 'contentstyle.css');
+
+  const profileSyncDialog = shadowRoot.querySelector('#profile-sync-dialog');
+
+  if (isProfileSyncDialogVisible && profileSyncDialog) {
+    // If the dialog is visible, hide it and update the flag
+    profileSyncDialog.style.display = 'none';
+    isProfileSyncDialogVisible = false;
+    return; // Exit early
+  } else if (profileSyncDialog) {
+    // If the dialog exists but is hidden, show it and update the flag
+    profileSyncDialog.style.display = 'block';
+    isProfileSyncDialogVisible = true;
+    return;
+  }
+
+
+  // Dialog not created yet, create it
+  const newDialog = await createProfileSyncDialog(shadowRoot);
+  
+  shadowRoot.appendChild(newDialog);
+  positionDropdownViewPort(newDialog, button, 'below',shadowRoot);
+  button.parentNode.appendChild(container);
+ 
+
+  isProfileSyncDialogVisible = true;
+}
+
+function removeProfileSyncDialog(shadowRoot: ShadowRoot) {
+  const profileSyncDialog = shadowRoot.querySelector('#profile-sync-dialog');
+  if (profileSyncDialog) {
+    shadowRoot.removeChild(profileSyncDialog);
+    isProfileSyncDialogVisible = false;
+  }
+}
+
+async function createProfileSyncDialog(shadowRoot: ShadowRoot): Promise<HTMLElement> {
+  const dialog = document.createElement('div');
+  dialog.id = 'profile-sync-dialog';
+  dialog.className = 'custom-modal-container profile-sync-dialog';
+  dialog.style.width = 'fit-content';
+  dialog.style.maxWidth = '70vh';
+  dialog.style.display = 'block';
+
+  const content = document.createElement('div');
+  content.className = 'modal-body';
+
+  const header = createProfileSyncHeader(() => removeProfileSyncDialog(shadowRoot));
+  const profileInfo = await getProfileInfo();
+
+  if (profileInfo) {
+    content.append(createProfileBasicInfo(profileInfo));
+    content.append(createSyncButton());
+  } else {
+    content.innerHTML = '<div>Error loading profile information.</div>';
+  }
+
+  dialog.append(header, content);
+
+  return dialog;
+}
+
+
+function createProfileBasicInfo(profileInfo: any): HTMLDivElement {
+  const profileInfoDiv = document.createElement('div');
+  profileInfoDiv.className = 'profile-basic-info';
+
+  // Container for image + info
+  const profileContainer = document.createElement('div');
+  profileContainer.className = 'profile-container';
+
+  // Image Container
+  const imageContainer = document.createElement('div');
+  imageContainer.className = 'profile-image-container';
+
+  // Profile Image
+  const profileImage = document.createElement('img');
+  profileImage.src = profileInfo.avatarUrl;
+  profileImage.alt = 'Profile Image';
+  profileImage.className = 'profile-image';
+
+  // Right Side Info
+  const profileInfoRight = document.createElement('div');
+  profileInfoRight.className = 'profile-info-right';
+
+  // Profile Name
+  const profileName = document.createElement('h3');
+  profileName.textContent = profileInfo.name;
+  profileName.className = 'profile-name';
+
+  // Headline
+  const headline = document.createElement('p');
+  headline.textContent = profileInfo.headline;
+  headline.className = 'profile-headline';
+
+  // Followers Card
+  const followersCard = document.createElement('div');
+  followersCard.className = 'profile-followers-card';
+  followersCard.textContent = `${profileInfo.followers} followers`;
+
+  // Build structure
+  imageContainer.appendChild(profileImage);
+  profileInfoRight.append(profileName, headline, followersCard);
+  profileContainer.append(imageContainer, profileInfoRight);
+  profileInfoDiv.appendChild(profileContainer);
+
+  return profileInfoDiv;
+}
+
+function createProfileSyncHeader(onClose: () => void): HTMLDivElement {
+  const header = document.createElement('div');
+  header.className = 'modal-header';
+
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = 'Profile Sync';
+
+  const closeBtn = createButton('', 'close-modal', onClose);
+  closeBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 0 24 24" width="16px">
+      <path d="M0 0h24v24H0V0z" fill="none"/>
+      <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+    </svg>
+  `;
+
+  const headerRight = document.createElement('div');
+  headerRight.className = 'dropdown-header-right';
+
+  headerRight.append(closeBtn);
+  header.append(titleElement, headerRight);
+
+  return header;
+}
+type ProfileInfo = {
+  profileId: string | null;
+  name: string;
+  headline: string; 
+  avatarUrl: string;
+  coverUrl: string;
+  followers: number;
+  location: string;
+  about: string;
+  profileUrl: string;
+
+}
+
+function getFsdProfileId() {
+  // Select the anchor tag that contains the profile URL
+  const linkElement = document.querySelector(
+    '.pvs-entity__tertiary-action-with-vertical-alignment a[href*="profileUrn="]',
+  );
+
+  if (linkElement) {
+    // Extract the 'profileUrn' parameter from the URL
+    const profileUrl = new URL(linkElement.href);
+    console.log('URL:', profileUrl);
+    const profileUrn = profileUrl.searchParams.get('profileUrn');
+
+    if (profileUrn) {
+      // Extract the actual profile ID after 'urn:li:fsd_profile:'
+      const profileId = profileUrn.split(':').pop();
+      return profileId; // Return the profileId;
+    }
+  }
+
+  return getFsdProfileFromActivityId(); // Return null if not found
+}
+function getFsdProfileFromActivityId() {
+  // Find the activity section using stable class names
+  const activitySection = document.querySelector('.feed-shared-update-v2__control-menu-container');
+console.log('activitySection:', activitySection);
+  if (!activitySection) return null;
+
+  // Find the first profile image link containing the FSD profile ID
+  const profileLink = activitySection.querySelector('a.update-components-actor__image[href*="miniProfileUrn"]');
+console.log('profileLink:', profileLink);
+  if (!profileLink) return null;
+ const profileUrl = profileLink.getAttribute('href');
+  // Extract and decode the URN parameter from the URL
+  const urlParams = new URLSearchParams(profileLink.href.split('?')[1]);
+  const miniProfileUrn = urlParams.get('miniProfileUrn');
+console.log('miniProfileUrn:', miniProfileUrn);
+  if (!miniProfileUrn) return null;
+
+  // Decode and parse the URN to get the FSD profile ID
+  const decodedUrn = decodeURIComponent(miniProfileUrn);
+  const profileId = decodedUrn.split(':').pop();
+
+  return profileId;
+}
+
+// Example usage
+console.log(getFsdProfileId());
+
+function getAboutDescription() {
+  // 1. Find all header elements that may indicate a section title.
+  const headers = document.querySelectorAll('h2.pvs-header__title');
+  let aboutHeader = null;
+
+  // Use includes() in case innerText returns "About About" or similar.
+  for (const header of headers) {
+    if (header.innerText.toLowerCase().includes('about')) {
+      aboutHeader = header;
+      break;
+    }
+  }
+
+  if (!aboutHeader) {
+    console.log('About header not found.');
+    return null;
+  }
+
+  // 2. Get the section element that contains the "About" header.
+  const section = aboutHeader.closest('section');
+  if (!section) {
+    console.log('About section container not found.');
+    return null;
+  }
+
+  // 3. Within this section, the description is typically in the next structural container.
+  // In our sample, it's the direct child with classes "display-flex ph5 pv3".
+  const textContainer = section.querySelector(':scope > div.display-flex.ph5.pv3');
+  if (!textContainer) {
+    console.log('About text container not found.');
+    return null;
+  }
+
+  // 4. Drill down to the inner container that holds the text.
+  // We assume the first descendant <div> contains the description.
+  const descriptionDiv = textContainer.querySelector('div');
+  if (!descriptionDiv) {
+    console.log('Description div not found.');
+    return null;
+  }
+
+  // Remove potential "see more" buttons: clone the node, remove buttons, then get text.
+  const clone = descriptionDiv.cloneNode(true);
+  const buttons = clone.querySelectorAll('button');
+  buttons.forEach((btn) => btn.remove());
+
+  return clone.innerText.trim();
+}
+
+// Example usage:
+console.log(getAboutDescription());
+
+
+
+
+async function getProfileInfo(): Promise<ProfileInfo | null> {
+  try {
+    const profileSection = document.querySelector('section.artdeco-card');
+    if (!profileSection) return null;
+
+    // Extract profile image URL
+    const profileImageElement =
+      profileSection.querySelector('img.pv-top-card-profile-picture__image--show') ||
+      profileSection.querySelector('img.profile-photo-edit__preview');
+    const profileImageUrl = profileImageElement?.getAttribute('src') || '';
+
+    // Extract profile name
+    // const profileNameElement = profileSection.querySelector('h1.text-heading-xlarge');
+    // const profileName = profileNameElement?.textContent?.trim() || '';
+
+      const profileName = document.querySelector('div.mt2 h1')?.textContent?.trim() || '';
+
+    // Extract headline
+    const headlineElement = profileSection.querySelector('div.text-body-medium.break-words');
+    const headline = headlineElement?.textContent?.trim() || '';
+
+    // Extract followers count
+    // const followersElement = profileSection.querySelector('ul.pv-top-card--list-bullet li:first-child span.t-bold');
+    // const followersText = followersElement?.textContent?.trim() || '';
+    // const followers = parseInt(followersText.replace(/,/g, ''), 10) || 0;
+
+    const followersText =
+      Array.from(document.querySelectorAll('ul li'))
+        .find((li) => li.textContent?.includes('followers'))
+        ?.querySelector('span.t-bold')?.textContent || '0';
+    var followers = parseInt(followersText.replace(/,/g, ''), 10) || 0;
+
+    if (!followers) {
+      const followersElement = document.querySelector(".pvs-header__optional-link .pvs-entity__caption-wrapper");
+
+if (followersElement) {
+   followers = followersElement.textContent.match(/\d[\d,]*/)?.[0].replace(/,/g, '');
+  console.log(`Followers: ${followers}`);
+} else {
+  console.log("Followers count not found.");
+}
+    }
+
+
+    // Extract location
+    const locationElement = profileSection.querySelector('span.text-body-small.inline.t-black--light');
+    const location = locationElement?.textContent?.trim() || '';
+
+    // Extract about section
+
+
+    // Extract profile URL
+    const profileUrlElement = profileSection.querySelector('a[data-test-app-aware-link]');
+
+    // Extract cover image URL
+    const coverImageElement = profileSection.querySelector('img.profile-background-image__image');
+    const coverUrl = coverImageElement?.getAttribute('src') || '';
+
+    // Extract profile ID (if available)
+    const profileId = getFsdProfileId();
+    const profileUrl = window.location.href;
+    // Prepare JSON response
+    const profileInfo: ProfileInfo = {
+      profileId: profileId,
+      name: profileName,
+      headline,
+      avatarUrl: profileImageUrl,
+      coverUrl,
+      profileUrl: profileUrl || '',
+      location,
+      about: getAboutDescription(),
+      followers,
+    };
+    console.log('Profile Info:', profileInfo);
+
+    return profileInfo;
+  } catch (error) {
+    console.error('Error extracting profile information:', error);
+    return null;
+  }
+}
+
+// Helper function to extract profile ID (if available)
+
+
+function createSyncButton(): HTMLButtonElement {
+  const syncButton = document.createElement('button');
+  syncButton.textContent = 'Sync Profile';
+  syncButton.className = 'btn-primary sync-profile-button';
+  //   syncButton.addEventListener('click', () => {
+  //     // Sync influencers
+  //     handleSync(shadowRoot);
+  //   });
+  return syncButton;
+}
+
+
+
+
+
+function removeDropdown(shadowRoot: ShadowRoot) {
+  const dropdown = shadowRoot.querySelector('#action-dropdown');
+  if (dropdown) {
+    shadowRoot.removeChild(dropdown);
+    isDropdownVisible = false;
+  }
 }
 
 function createDropdown(shadowRoot: ShadowRoot, options: DropdownOptions, triggerElement: HTMLElement) {
@@ -29,12 +428,8 @@ function createDropdown(shadowRoot: ShadowRoot, options: DropdownOptions, trigge
   content.className = 'modal-body';
   // Pass triggerElement into createHeader so that it’s available when we want to reload the list.
   const header = createHeader(
-    options,
-    content,
-    dropdown,
-    shadowRoot,
-    () => shadowRoot.removeChild(dropdown),
-    triggerElement,
+    options,  
+    () => removeDropdown(shadowRoot),
   );
   dropdown.append(header, content);
 
@@ -209,6 +604,39 @@ export async function createFloatingButton() {
   shadowRoot.appendChild(button);
   document.body.appendChild(container);
 }
+
+
+export async function addProfileButton() {
+  if (!window.location.pathname.startsWith('/in/')) {
+    return;
+  }
+  const profileActions = document.querySelector('.pv-top-card--photo-resize');
+  if (!profileActions) {
+    return;
+  }
+
+  // Check if the button already exists
+  if (document.querySelector('.depost-profile-button')) {
+   return;
+  }
+
+  // Create the button
+  const button = document.createElement('button');
+  button.className =
+    'artdeco-button artdeco-button--circle artdeco-button--muted artdeco-button--3 artdeco-button--tertiary ember-view profile-top-card__subscribe-button depost-profile-button';
+  button.type = 'button';
+  button.innerHTML = `<img src="${chrome.runtime.getURL('icons/icon128.png')}" width="24" height="24">`;
+  button.style.marginLeft = '10px';
+
+  
+  // Add click event listener (currently just logs to console)
+  button.addEventListener('click', () => {
+    showProfileSyncDialog(button);
+  });
+
+  // Insert the button before the first child of the profileHeader
+  profileActions.parentNode.insertBefore(button, profileActions.nextSibling);
+   }
 
 function createDateFilter() {
   const wrapper = document.createElement('div');

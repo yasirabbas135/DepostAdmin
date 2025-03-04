@@ -29,7 +29,7 @@ const manifest = {
   permissions: ['tabs', 'storage', 'activeTab', 'scripting', 'alarms', 'identity', 'sidePanel'],
   oauth2: {
     // client_id: '34058180382-g5vaau8t1shosjtr5tb25qriohm6nq2g.apps.googleusercontent.com', // production my key
-    client_id: '34058180382-is5626jpr3fqi7ncce6cgoiivc5o9489.apps.googleusercontent.com', // Yasir local key
+    client_id: '34058180382-1uuvirh1ivtnqb5u6haaprqg2oip8t3h.apps.googleusercontent.com', // Yasir local key
     //  client_id: '905941577193-kda6unkvd0cq0eeqc63n9l3gfvvbcleh.apps.googleusercontent.com', // production key
     //  client_id: '34058180382-h4a2j41ed64seuj3jsaeku6tj0g92ikl.apps.googleusercontent.com', // Atta local key
     scopes: ['https://www.googleapis.com/auth/userinfo.email', 'https://www.googleapis.com/auth/userinfo.profile'],

@@ -33,6 +33,14 @@ const API_CONFIG: { [key: string]: ApiEndpoint } = {
       completeOnboarding: '/onboarding',
     },
   },
+  INFLUENCER_API: {
+    BASE_URL: `${BASE_URL}/infuencers`,
+    ENDPOINTS: {
+      createInfluencer: '/',
+      getAllInfluencers: '/',
+      getInfluencerById: '/{influencerId}', // Placeholder for userId
+    },
+  },
   RECOMMENDATION_API: {
     BASE_URL: `${BASE_URL}`,
     ENDPOINTS: {

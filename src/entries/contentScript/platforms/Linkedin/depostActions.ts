@@ -7,7 +7,7 @@ import {
 import { getIcon, positionDropdown, showToast, loadStyles } from '~/lib/utils';
 import { isUserLoggedIn } from '../../../background/apiRequestService';
 import { extractPostSummaryLinkedin } from './linkedinUtils';
-import { createFloatingButton, startScraping, stopScraping } from './findAndGetPosts';
+import { addProfileButton, createFloatingButton, startScraping, stopScraping } from './findAndGetPosts';
 
 type DropdownOption = {
   text: string;
@@ -129,6 +129,8 @@ export async function addPostCaptureActions(): Promise<void> {
       }
     });
   });
+
+    addProfileButton();
 }
 
 function createToggleIcon(): HTMLSpanElement {
