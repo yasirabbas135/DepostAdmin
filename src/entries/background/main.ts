@@ -10,6 +10,11 @@ import {
   sendEmailVerification,
   verifyEmail,
   getViralPosts,
+  createInfluencer,
+  createViralPost,
+  getAllInfluencers,
+  getInfluencerById,
+  createBatchViralPost,
 } from './apiRequestService';
 
 async function handleAuthClick() {
@@ -93,6 +98,16 @@ const handleApiRequest = async (payload: any) => {
       return await verifyEmail(payload.userData);
     case 'registerSocialUser':
       return await registerSocialUser(payload.userData);
+    case 'createInfluencer':
+      return await createInfluencer(payload.influencerData);
+    case 'getInfluencerById':
+      return await getInfluencerById(payload.influencerId);
+    case 'getAllInfluencers':
+      return await getAllInfluencers( payload.page, payload.limit, payload.term, payload.reload);
+    case 'createViralPost':
+      return await createViralPost(payload.viralPostData);
+     case 'createBatchViralPosts':
+      return await createBatchViralPost(payload.viralPostsData);
     case 'getUserMembership':
       if (await isUserLoggedIn()) {
         return await getUserMembership();

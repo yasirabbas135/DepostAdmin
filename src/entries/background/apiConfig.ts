@@ -1,3 +1,5 @@
+import { create } from 'domain';
+import { get } from 'http';
 import { LOCAL_BASE_URL, PROD_BASE_URL } from '~/lib/constants';
 
 type ApiEndpoint = {
@@ -34,17 +36,20 @@ const API_CONFIG: { [key: string]: ApiEndpoint } = {
     },
   },
   INFLUENCER_API: {
-    BASE_URL: `${BASE_URL}/infuencers`,
+    BASE_URL: `${BASE_URL}/influencers`,
     ENDPOINTS: {
-      createInfluencer: '/',
-      getAllInfluencers: '/',
+      createInfluencer: '',
+      getAllInfluencers: '',
       getInfluencerById: '/{influencerId}', // Placeholder for userId
     },
   },
-  RECOMMENDATION_API: {
-    BASE_URL: `${BASE_URL}`,
+  VIRAL_POST_API: {
+    BASE_URL: `${BASE_URL}/viral-posts`,
     ENDPOINTS: {
-      getViralPosts: '/viral-posts',
+      getViralPosts: '/',
+      createViralPost: '/',
+      getViralPostById: '/{viralPostId}',
+      createBatchViralPosts: '/batch',
     },
   },
   BOOKMARKS_API: {

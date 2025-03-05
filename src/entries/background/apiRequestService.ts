@@ -242,13 +242,85 @@ const getViralPosts = async (
   const params = { page, limit, term, type };
 
   try {
-    const response = await get('RECOMMENDATION_API', 'getViralPosts', params, token);
+    const response = await get('VIRAL_POST_API', 'getViralPosts', params, token);
+    return response;
+  } catch (error) {
+    console.error('Error fetching all tones:', error);
+    throw error;
+  };
+};
+  const createViralPost= async (viralPostData: any) => {
+    const session = await getUserSession();
+    const token = session.token;
+
+    try {
+      const response = await post('VIRAL_POST_API', 'createViralPost', viralPostData, token);   
+      return response;
+    } catch (error) {
+      console.error('Error creating viral post:', error);
+      throw error;
+    }
+};  
+  
+const createBatchViralPost = async (viralPostData: any) => {
+  const session = await getUserSession();
+  const token = session.token;
+
+  try {
+    const response = await post('VIRAL_POST_API', 'createBatchViralPosts', viralPostData, token);   
+    return response;
+  } catch (error) {
+    console.error('Error creating viral post:', error);
+    throw error;
+  }
+};  
+
+const createInfluencer = async (influencerData: any) => {
+  const session = await getUserSession();
+  const token = session.token;
+  console.log('influencerData', influencerData);
+  try {
+    const response = await post('INFLUENCER_API', 'createInfluencer', influencerData, token);   
+    return response;
+  } catch (error) {
+    console.error('Error creating influencer:', error);
+    throw error;
+  }
+};
+
+const getAllInfluencers = async (
+  page: number = 1,
+  limit: number = 1000,
+  term: string = '',
+  type?: string,
+  reload: boolean = false,
+) => {
+  const session = await getUserSession();
+  const token = session.token;
+
+  const params = { page, limit, term, type };
+
+  try {
+    const response = await get('INFLUENCER_API', 'getAllInfluencers', params, token);
     return response;
   } catch (error) {
     console.error('Error fetching all tones:', error);
     throw error;
   }
-};
+};  
+
+const getInfluencerById = async (influencerId: string) => {
+  const session = await getUserSession();
+  const token = session.token;    
+  try {
+    const response = await get('INFLUENCER_API', 'getInfluencerById', { influencerId }, token);
+    return response;
+  } catch (error) {
+    console.error('Error fetching influencer:', error);
+    throw error;
+  }
+};  
+
 
 
 // Logout Function
@@ -277,4 +349,9 @@ export {
   verifyEmail,
   updateOnboardingStatus,
   getViralPosts,
+  createViralPost,
+  createBatchViralPost,
+  createInfluencer,
+  getAllInfluencers,
+  getInfluencerById,
 };

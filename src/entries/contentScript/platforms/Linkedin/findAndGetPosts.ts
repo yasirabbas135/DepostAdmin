@@ -3,6 +3,8 @@ import {
 } from '~/lib/constants';
 import {  loadStyles, positionDropdown, positionDropdownViewPort, showTooltip } from '~/lib/utils';
 import { getPostDetail } from './linkedinUtils';
+import { get } from 'http';
+import { response } from 'express';
 let isProfileSyncDialogVisible = false; // New flag for profile sync dialog
 
 // async function showSyncManagerDialog(button, container, shadowRoot) {
@@ -50,6 +52,56 @@ async function showSyncManagerDialog(button, container, shadowRoot) {
   await loadSyncContent(newDropdown, shadowRoot);
   isDropdownVisible = true; // Update the flag after creating the dropdown
 }
+async function saveTemplateToStorage(newTemplate: Template, onError: (message: string) => void, onSuccess: () => void) {
+  try {
+    const response = await chrome.runtime.sendMessage({
+      action: 'apiRequest',
+      payload: { method: 'createTemplate', templateData: newTemplate },
+    });
+
+    // If a response is received, update the element and handle typing effect
+    if (response.success) {
+      onSuccess();
+    }
+    {
+      onError('Failed to save template: ' + response.error);
+    }
+  } catch (error) {
+    onError('Failed to save template: ' + error);
+  }
+}
+
+async function getInfluencerById(influencerId: string) {
+  try {
+    const response = await chrome.runtime.sendMessage({
+      action: 'apiRequest',
+      payload: { method: 'getInfluencerById', influencerId },
+    });
+
+    return response;  
+  }
+  catch (error) {
+    console.error('Error fetching influencer:', error);
+    throw error;  
+  }
+}
+
+async function createInfluencer(influencerData: any) {
+  try {
+    const response = await chrome.runtime.sendMessage({
+      action: 'apiRequest',
+      payload: { method: 'createInfluencer', influencerData },
+    });
+
+    console.log('Influencer created:', response);
+    return response;
+  } catch (error) {
+    console.error('Error creating influencer:', error);
+    throw error;
+  }
+}
+
+
 
 async function showProfileSyncDialog(button) {
 
@@ -113,7 +165,7 @@ async function createProfileSyncDialog(shadowRoot: ShadowRoot): Promise<HTMLElem
 
   if (profileInfo) {
     content.append(createProfileBasicInfo(profileInfo));
-    content.append(createSyncButton());
+    content.append(createSyncButton(profileInfo));
   } else {
     content.innerHTML = '<div>Error loading profile information.</div>';
   }
@@ -394,14 +446,17 @@ if (followersElement) {
 // Helper function to extract profile ID (if available)
 
 
-function createSyncButton(): HTMLButtonElement {
+function createSyncButton(profileInfo): HTMLButtonElement {
   const syncButton = document.createElement('button');
   syncButton.textContent = 'Sync Profile';
   syncButton.className = 'btn-primary sync-profile-button';
-  //   syncButton.addEventListener('click', () => {
-  //     // Sync influencers
-  //     handleSync(shadowRoot);
-  //   });
+  syncButton.addEventListener('click', () => {
+    // Sync influencers
+    if (profileInfo) {
+      console.log('Syncing influencers...', profileInfo);
+      createInfluencer(profileInfo);
+    }
+  });
   return syncButton;
 }
 
@@ -607,6 +662,7 @@ export async function createFloatingButton() {
 
 
 export async function addProfileButton() {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
   if (!window.location.pathname.startsWith('/in/')) {
     return;
   }
@@ -620,12 +676,20 @@ export async function addProfileButton() {
    return;
   }
 
+  const profileId = getFsdProfileId();
+  const profileInfo = profileId? await getInfluencerById(profileId):null;
+  console.log('Profile is synced:', profileInfo);
+  var profileExist = false;
+  if (profileInfo?.success) {
+   profileExist = profileInfo.response?.data?.id;
+    console.log('Profile is synced:', profileInfo.response?.data);
+  }
   // Create the button
   const button = document.createElement('button');
   button.className =
     'artdeco-button artdeco-button--circle artdeco-button--muted artdeco-button--3 artdeco-button--tertiary ember-view profile-top-card__subscribe-button depost-profile-button';
   button.type = 'button';
-  button.innerHTML = `<img src="${chrome.runtime.getURL('icons/icon128.png')}" width="24" height="24">`;
+  button.innerHTML = `<img src="${chrome.runtime.getURL(profileExist ? 'icons/check_circle.png' : 'icons/icon128.png')}" width="24" height="24">`;
   button.style.marginLeft = '10px';
 
   
